@@ -1,0 +1,4 @@
+<launch>
+    <param name="num" value="3" />
+    <node pkg="r2_decision" name="test_ui" type="test_ui" output="screen" />
+</launch>

@@ -1,0 +1,27 @@
+<launch>
+
+    <!-- 话题参数加载 -->
+    <param name="camera_catch_ball_topic"  value="/hikrobot_camera" />
+    <param name="camera_decide_topic" value="/yolov5/silos" />
+    <param name="laser_topic" value="/Odometry" />
+    <param name="receive_stm32_topic" value="/stm32" />
+    <param name="publish_stm32_topic" value="/r2_cmd" />
+    <param name="if_reach_topic" value="/path_status" />
+    <param name="publish_move_goal_topic" value="/path_cmd" />
+    <param name="publish_decide_topic" value="/decision_topic" />
+
+    <!-- BT树xml文件加载 -->
+    <!-- <param name="tree_config_path" value="$(find r2_decision)/config/decision.xml" /> -->
+    <param name="tree_config_path" value="$(find r2_decision)/config/test_decide.xml" />
+
+
+    <!-- 决策参数加载 -->
+    <!-- if_use_plan2 为是否使用带有大胜的决策方案 -->
+    <rosparam command="load" file="$(find r2_config)/config/path/path.yaml" />
+    <param name="if_use_plan2" value="false" />
+    <param name="if_use_real_distance" value="true" />
+
+    <!-- 启动决策 -->
+    <node pkg="r2_decision" name="control_loop" type="control_loop" output="screen" />
+
+</launch>

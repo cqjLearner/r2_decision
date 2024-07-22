@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <SequenceStar>
+            <Repeat num_cycles="100000">
+                <Delay delay_msec="100">
+                    <ReactiveSequence>
+                        <Action ID="Decide" goal="{goal}"/>
+                    </ReactiveSequence>
+                </Delay>
+            </Repeat>
+        </SequenceStar>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="Decide">
+            <output_port name="goal"/>
+        </Action>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>

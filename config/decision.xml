@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <!-- SequenceStar：子节点failure或running，则下次从该节点开始
+         ReactiveSequence：子节点failure或running，则下次从头开始--> 
+    <BehaviorTree ID="BehaviorTree">
+        <SequenceStar>
+            <!-- 路径一二 -->
+            <SequenceStar>
+                <SetBlackboard output_key="goal" value="0;0;0;2;5"/>
+                <Action ID="MoveBase" goal="{goal}"/>
+                <Action ID="IfReach"/>
+            </SequenceStar>
+            <SequenceStar>
+                <SetBlackboard output_key="goal" value="0;0;0;3;5"/>
+                <Action ID="MoveBase" goal="{goal}"/>
+                <Action ID="IfReach"/>
+            </SequenceStar>
+
+            <Repeat num_cycles="100000">
+                <SequenceStar>
+                    <!-- 去固定找球点 -->
+                    <SequenceStar>
+                        <SetBlackboard output_key="goal" value="3;0;0;4;5"/>
+                        <Action ID="MoveBase" goal="{goal}"/>
+                        <Action ID="IfReach"/>
+                    </SequenceStar>
+                    <!-- 相机找球，取球，筛球 -->
+                    <ReactiveSequence>
+                        <Action ID="BlackBoardRead" goal="{goal}"/>
+                        <Action ID="MoveBase" goal="{goal}"/>
+                        <Action ID="IfReach"/>
+                        <Action ID="TakeBall"/>
+                        <!-- <Action ID="FilterBall"/> -->
+                    </ReactiveSequence>
+                    <!-- 决策 -->
+                    <ReactiveSequence>
+                        <Action ID="Decide" goal="{goal}"/>
+                        <Action ID="MoveBase" goal="{goal}"/>
+                        <Action ID="IfReach"/>
+                    </ReactiveSequence>
+                    <!-- 放球 -->
+                    <Action ID="PutBall"/>
+                </SequenceStar>
+            </Repeat>
+        </SequenceStar>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="BlackBoardRead">
+            <output_port name="goal"/>
+        </Action>
+        <Action ID="Decide">
+            <output_port name="goal"/>
+        </Action>
+        <Action ID="FilterBall"/>
+        <Action ID="MoveBase">
+            <input_port name="goal"/>
+        </Action>
+        <Action ID="PutBall"/>
+        <Action ID="TakeBall"/>
+        <Action ID="IfReach"/>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>

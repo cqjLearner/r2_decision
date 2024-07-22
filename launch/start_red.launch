@@ -1,0 +1,4 @@
+<launch>
+    <param name="field_direction" value="left" />
+    <include file="$(find r2_config)/launch/rc_control.launch" />
+</launch>
