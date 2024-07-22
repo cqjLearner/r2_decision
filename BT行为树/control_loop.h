@@ -1,0 +1,11 @@
+#pragma once
+#include "ros/ros.h"
+#include "behaviortree_cpp_v3/bt_factory.h"
+#include "behaviortree_cpp_v3/loggers/bt_cout_logger.h"
+#include "r2_decision/operation/Move.h"
+#include "r2_decision/operation/FilterBall.h"
+#include "r2_decision/operation/TakeBall.h"
+#include "r2_decision/operation/PutBall.h"
+#include "r2_decision/blackboard/blackboard.h"
+#include "r2_decision/operation/Decide.h"
+#include "r2_decision/operation/IfReach.h"
